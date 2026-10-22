@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC Preparation Test 2027 - Mathematics MCQ (Model-5)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- MathJax for LaTeX Formulas -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+
+        @media print {
+
+            .no-print,
+            #start-modal,
+            #solutions-container,
+            .elicitations-bar {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 8.5pt !important;
+                line-height: 1.15 !important;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            }
+
+            .print-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            .exam-header-box {
+                padding-bottom: 4px !important;
+                margin-bottom: 6px !important;
+                border-bottom: 1.5px solid #000 !important;
+            }
+
+            .student-info-print {
+                display: flex !important;
+                justify-content: space-between !important;
+                margin-bottom: 6px !important;
+                font-size: 8pt !important;
+                background: none !important;
+                border: 0.5px solid #aaa !important;
+                padding: 4px 8px !important;
+            }
+
+            .mcq-grid {
+                column-count: 2 !important;
+                column-gap: 12px !important;
+                display: block !important;
+            }
+
+            .question-card {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                border: 0.5px solid #777 !important;
+                padding: 4px 6px !important;
+                margin-bottom: 6px !important;
+                background: #fff !important;
+                border-radius: 4px !important;
+            }
+
+            .question-card svg {
+                height: 48px !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 8mm 10mm 8mm 10mm;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 min-h-screen pb-12">
+
+    <!-- START EXAM MODAL / WELCOME SCREEN -->
+    <div id="start-modal" class="fixed inset-0 bg-slate-900 bg-opacity-90 z-50 flex items-center justify-center p-4">
+        <div class="bg-white max-w-lg w-full rounded-2xl shadow-2xl p-8 text-center border-t-8 border-blue-600">
+            <h2 class="text-2xl font-black text-slate-900 mb-1">এসএসসি প্রস্তুতি পরীক্ষা ২০২৭</h2>
+            <p class="text-sm font-semibold text-blue-600 mb-6">SSC Preparation Test 2027 - Mathematics (Subject Code:
+                109)</p>
+
+            <div class="space-y-4 text-left mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Students Name / পরীক্ষার্থীর
+                        নাম:</label>
+                    <input type="text" id="modal-std-name" placeholder="Enter full name..."
+                        class="w-full border-gray-300 rounded-lg p-3 text-sm border focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Name Of School / বিদ্যালয়ের
+                        নাম:</label>
+                    <input type="text" id="modal-sch-name" placeholder="Enter school name..."
+                        class="w-full border-gray-300 rounded-lg p-3 text-sm border focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-900 mb-6 text-left">
+                <p class="font-bold mb-1">📌 পরীক্ষার নির্দেশাবলী (Exam Instructions):</p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li>Total Questions: 30 MCQ | Full Marks: 30</li>
+                    <li>Time Allowed: 30 Minutes</li>
+                    <li>Timer activates immediately upon clicking "Start Exam".</li>
+                    <li>Auto-submit triggers when time expires.</li>
+                </ul>
+            </div>
+
+            <button onclick="startExamSession()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 text-base">
+                🚀 Start Exam / পরীক্ষা শুরু করুন
+            </button>
+        </div>
+    </div>
+
+    <!-- Top Navigation Action Bar (No Print) -->
+    <div class="no-print bg-slate-900 text-white p-4 sticky top-0 z-40 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <button id="btn-bn" onclick="setLanguage('bn')"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-400 transition text-sm">
+                    Select Bangla Version
+                </button>
+                <button id="btn-en" onclick="setLanguage('en')"
+                    class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg font-semibold shadow border border-slate-500 transition text-sm">
+                    Select English Version
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-6 text-sm font-medium">
+                <div>Start Time: <span id="start-time-disp" class="text-yellow-300">--:--</span></div>
+                <div>Remaining Time: <span id="timer-disp" class="text-red-400 font-bold text-lg">30:00</span></div>
+                <div>End Time: <span id="end-time-disp" class="text-yellow-300">--:--</span></div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="window.print()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition text-sm">
+                    🖨️ Print Test Paper
+                </button>
+                <button onclick="submitExam()"
+                    class="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition text-sm">
+                    ✅ Submit Answer Sheet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto bg-white my-6 p-8 rounded-xl shadow-lg print-container">
+        <!-- Exam Header -->
+        <div class="text-center exam-header-box border-b-2 border-gray-800 pb-3 mb-4">
+            <h2 id="model-no" class="text-xs font-bold text-gray-500 uppercase tracking-widest">মডেল-৫</h2>
+            <h1 id="school-title" class="text-2xl font-extrabold text-gray-900 mt-0.5">ভিকারুন্নিসা নূন স্কুল অ্যান্ড
+                কলেজ, ঢাকা</h1>
+            <h3 id="subject-title" class="text-lg font-bold text-gray-800 mt-0.5">গণিত (আবশ্যক) — সৃজনশীল বহুনির্বাচনি
+                প্রশ্ন</h3>
+
+            <div class="flex justify-between items-center mt-3 text-xs font-semibold border-t pt-2 border-gray-200">
+                <p><span id="time-lbl">সময়</span>: 30 মিনিট</p>
+                <p><span id="code-lbl">বিষয় কোড</span>: <span
+                        class="border px-2 py-0.5 rounded border-gray-400 bg-gray-50">109</span></p>
+                <p><span id="marks-lbl">পূর্ণমান</span>: 30</p>
+            </div>
+            <p class="text-[11px] text-gray-500 italic mt-1.5 text-left leading-tight" id="instructions-lbl">
+                [দ্রষ্টব্য: সরবরাহকৃত বহুনির্বাচনি অভীক্ষার উত্তরপত্রে প্রশ্নের ক্রমিক নম্বরের বিপরীতে প্রদত্ত বৃত্তসমূহ
+                হতে সঠিক/সর্বোৎকৃষ্ট উত্তরের বৃত্তটি (●) বল পয়েন্ট কলম দ্বারা সম্পূর্ণ ভরাট কর। প্রতিটি প্রশ্নের মান 1।]
+            </p>
+        </div>
+
+        <!-- Student Info Bar -->
+        <div
+            class="student-info-print grid grid-cols-1 md:grid-cols-2 gap-4 mb-5 bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <div>
+                <span class="font-bold text-gray-600 uppercase text-xs" id="lbl-std-name">Students Name:</span>
+                <span id="display-std-name"
+                    class="font-bold text-slate-900 ml-2 border-b border-dotted border-slate-600 px-2 text-sm">--</span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-600 uppercase text-xs" id="lbl-sch-name">Name Of School:</span>
+                <span id="display-sch-name"
+                    class="font-bold text-slate-900 ml-2 border-b border-dotted border-slate-600 px-2 text-sm">--</span>
+            </div>
+        </div>
+
+        <!-- Scoreboard (Hidden until submit) -->
+        <div id="result-board"
+            class="hidden mb-6 p-6 bg-emerald-50 border-2 border-emerald-500 rounded-xl text-center no-print">
+            <h2 class="text-2xl font-bold text-emerald-800" id="res-title">Exam Result / পরীক্ষার ফলাফল</h2>
+            <p class="text-4xl font-extrabold text-emerald-600 my-2" id="score-text">0 / 30</p>
+            <p class="text-sm text-gray-600" id="res-subtext">Review your answers and click "See Complete Solutions"
+                below to view step-by-step solutions.</p>
+            <button onclick="toggleSolutions()"
+                class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded-lg shadow transition">
+                💡 See Complete Solutions (সম্পূর্ণ সমাধান দেখাও)
+            </button>
+        </div>
+
+        <!-- MCQ Questions Grid (2 Columns) -->
+        <div id="mcq-container" class="mcq-grid grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-3">
+            <!-- Questions dynamically generated -->
+        </div>
+
+        <!-- Solutions Container -->
+        <div id="solutions-container" class="hidden mt-10 pt-6 border-t-2 border-indigo-500 no-print">
+            <h2 class="text-2xl font-bold text-indigo-900 mb-6 flex items-center gap-2">
+                <span>📘</span> <span id="sol-heading">Detailed Step-by-Step Solutions (সকল প্রশ্নের বিস্তারিত
+                    সমাধান)</span>
+            </h2>
+            <div id="solutions-list" class="space-y-4">
+                <!-- Solutions dynamically generated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Elicitations Wrap-up Bar (No Print) -->
+    <div class="max-w-5xl mx-auto px-8 mb-12 no-print elicitations-bar">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+            <h3 class="text-xs font-bold text-slate-600 mb-3 uppercase tracking-wider">Exam Action Shortcuts:</h3>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="window.print()"
+                    class="bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition">
+                    🖨️ Print 2-Column A4 Paper
+                </button>
+                <button onclick="toggleSolutions()"
+                    class="bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition">
+                    📖 Toggle Solutions View
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mcqData = [
+            {
+                id: 1,
+                q_bn: "$0.555\\dots$ এর সামান্য ভগ্নাংশের রূপ কোনটি?",
+                q_en: "Which one is the vulgar fraction form of $0.555\\dots$?",
+                options_bn: ["\\frac{5}{9}", "\\frac{11}{18}", "\\frac{11}{9}", "\\frac{50}{99}"],
+                options_en: ["\\frac{5}{9}", "\\frac{11}{18}", "\\frac{11}{9}", "\\frac{50}{99}"],
+                ans: 0,
+                sol_bn: "$0.555\\dots = 0.\\dot{5} = \\frac{5}{9}$।",
+                sol_en: "$0.555\\dots = 0.\\dot{5} = \\frac{5}{9}$."
+            },
+            {
+                id: 2,
+                q_bn: "$A = \\{a, b, c, d\\}$, $B = \\{b, c, d, e\\}$ হলে $P(A \\cap B)$ এর সদস্য সংখ্যা নিচের কোনটি?",
+                q_en: "If $A = \\{a, b, c, d\\}$ and $B = \\{b, c, d, e\\}$, what is the number of elements of $P(A \\cap B)?$",
+                options_bn: ["3", "5", "8", "32"],
+                options_en: ["3", "5", "8", "32"],
+                ans: 2,
+                sol_bn: "$A \\cap B = \\{b, c, d\\}$। উপাদান সংখ্যা $n = 3$। সুতরাং, $P(A \\cap B)$ এর উপাদান সংখ্যা $2^n = 2^3 = 8$।",
+                sol_en: "$A \\cap B = \\{b, c, d\\}$. Number of elements $n = 3$. Hence elements of $P(A \\cap B) = 2^n = 2^3 = 8$."
+            },
+            {
+                id: 3,
+                context_bn: "নিচের তথ্যের আলোকে (3 ও 4) নং প্রশ্নের উত্তর দাও:<br>$x = 7 + 4\\sqrt{3}$",
+                context_en: "Answer questions 3 & 4 based on the following information:<br>$x = 7 + 4\\sqrt{3}$",
+                q_bn: "$x^2 + \\frac{1}{x^2}$ এর মান কত?",
+                q_en: "What is the value of $x^2 + \\frac{1}{x^2}$?",
+                options_bn: ["190", "194", "198", "200"],
+                options_en: ["190", "194", "198", "200"],
+                ans: 1,
+                sol_bn: "এখানে, $\\frac{1}{x} = \\frac{1}{7 + 4\\sqrt{3}} = 7 - 4\\sqrt{3}$।<br>$\\therefore x + \\frac{1}{x} = 14$।<br>$x^2 + \\frac{1}{x^2} = (x + \\frac{1}{x})^2 - 2 = 14^2 - 2 = 194$।",
+                sol_en: "Here, $\\frac{1}{x} = 7 - 4\\sqrt{3}$.<br>$\\therefore x + \\frac{1}{x} = 14$.<br>$x^2 + \\frac{1}{x^2} = 14^2 - 2 = 194$."
+            },
+            {
+                id: 4,
+                q_bn: "$\\sqrt{x} - \\frac{1}{\\sqrt{x}}$ এর মান কত?",
+                q_en: "What is the value of $\\sqrt{x} - \\frac{1}{\\sqrt{x}}$?",
+                options_bn: ["2\\sqrt{3}", "4", "8\\sqrt{3}", "14"],
+                options_en: ["2\\sqrt{3}", "4", "8\\sqrt{3}", "14"],
+                ans: 0,
+                sol_bn: "$x = (2 + \\sqrt{3})^2 \\implies \\sqrt{x} = 2 + \\sqrt{3}$ এবং $\\frac{1}{\\sqrt{x}} = 2 - \\sqrt{3}$।<br>$\\therefore \\sqrt{x} - \\frac{1}{\\sqrt{x}} = 2\\sqrt{3}$।",
+                sol_en: "$x = (2 + \\sqrt{3})^2 \\implies \\sqrt{x} = 2 + \\sqrt{3}$ and $\\frac{1}{\\sqrt{x}} = 2 - \\sqrt{3}$.<br>$\\therefore \\sqrt{x} - \\frac{1}{\\sqrt{x}} = 2\\sqrt{3}$."
+            },
+            {
+                id: 5,
+                q_bn: "$\\log_{\\sqrt{3}} 27$ এর মান কত?",
+                q_en: "What is the value of $\\log_{\\sqrt{3}} 27$?",
+                options_bn: ["1", "3", "6", "9"],
+                options_en: ["1", "3", "6", "9"],
+                ans: 2,
+                sol_bn: "$\\log_{\\sqrt{3}} 27 = \\log_{\\sqrt{3}} (\\sqrt{3})^6 = 6 \\log_{\\sqrt{3}} \\sqrt{3} = 6$।",
+                sol_en: "$\\log_{\\sqrt{3}} 27 = \\log_{\\sqrt{3}} (\\sqrt{3})^6 = 6$."
+            },
+            {
+                id: 6,
+                q_bn: "$0.000045$ সংখ্যাটিতে লগের পূর্ণক কত?",
+                q_en: "What is the characteristic of the logarithm of $0.000045$?",
+                options_bn: ["\\bar{5}", "\\bar{4}", "4", "5"],
+                options_en: ["\\bar{5}", "\\bar{4}", "4", "5"],
+                ans: 0,
+                sol_bn: "$0.000045 = 4.5 \\times 10^{-5}$। সূচক $-5$, সুতরাং পূর্ণক $\\bar{5}$।",
+                sol_en: "$0.000045 = 4.5 \\times 10^{-5}$. Exponent is $-5$, so characteristic is $\\bar{5}$."
+            },
+            {
+                id: 7,
+                q_bn: "$\\sqrt{5x - \\frac{5}{2}} + 2 = 1$ সমীকরণের সমাধান সেট কোনটি?",
+                q_en: "Which one is the solution set of $\\sqrt{5x - \\frac{5}{2}} + 2 = 1$?",
+                options_bn: ["\\{\\}", "\\{\\phi\\}", "\\{\\frac{3}{10}\\}", "\\{\\frac{7}{10}\\}"],
+                options_en: ["\\{\\}", "\\{\\phi\\}", "\\{\\frac{3}{10}\\}", "\\{\\frac{7}{10}\\}"],
+                ans: 0,
+                sol_bn: "$\\sqrt{5x - \\frac{5}{2}} = -1$। বর্গমূল ঋণাত্মক হতে পারে না, তাই সমাধান সেট $\\{\\}$।",
+                sol_en: "$\\sqrt{5x - \\frac{5}{2}} = -1$. Square root cannot be negative, so solution set is $\\{\\}$."
+            },
+            {
+                id: 8,
+                context_bn: "নিচের তথ্যের আলোকে (8 ও 9) নং প্রশ্নের উত্তর দাও:<br><svg width='150' height='65' class='mx-auto my-1'><path d='M15,52 L55,12 L100,52 Z' fill='none' stroke='black' stroke-width='1.5'/><path d='M145,12 L100,52' stroke='black' stroke-width='1.5'/><path d='M100,52 L145,52' stroke='black' stroke-width='1.5'/><text x='8' y='62' font-size='10'>B</text><text x='49' y='62' font-size='10'>6cm</text><text x='95' y='62' font-size='10'>C</text><text x='138' y='62' font-size='10'>D</text><text x='50' y='10' font-size='10'>A</text><text x='140' y='10' font-size='10'>E</text><text x='20' y='32' font-size='9'>4cm</text><text x='32' y='48' font-size='9'>60°</text><text x='68' y='48' font-size='9'>50°</text></svg>",
+                context_en: "Answer questions 8 & 9 based on the following diagram:<br><svg width='150' height='65' class='mx-auto my-1'><path d='M15,52 L55,12 L100,52 Z' fill='none' stroke='black' stroke-width='1.5'/><path d='M145,12 L100,52' stroke='black' stroke-width='1.5'/><path d='M100,52 L145,52' stroke='black' stroke-width='1.5'/><text x='8' y='62' font-size='10'>B</text><text x='49' y='62' font-size='10'>6cm</text><text x='95' y='62' font-size='10'>C</text><text x='138' y='62' font-size='10'>D</text><text x='50' y='10' font-size='10'>A</text><text x='140' y='10' font-size='10'>E</text><text x='20' y='32' font-size='9'>4cm</text><text x='32' y='48' font-size='9'>60°</text><text x='68' y='48' font-size='9'>50°</text></svg>",
+                q_bn: "$BA \\parallel CE$ হলে $\\angle ACE$ এর মান কত?",
+                q_en: "If $BA \\parallel CE$, what is the value of $\\angle ACE$?",
+                options_bn: ["50°", "60°", "70°", "110°"],
+                options_en: ["50°", "60°", "70°", "110°"],
+                ans: 2,
+                sol_bn: "$\\angle BAC = 180° - (60° + 50°) = 70°$। একান্তর কোণানুসারে $\\angle ACE = 70°$।",
+                sol_en: "$\\angle BAC = 180° - (60° + 50°) = 70°$. Alternate angle $\\angle ACE = 70°$."
+            },
+            {
+                id: 9,
+                q_bn: "$\\Delta ABC$ এর ক্ষেত্রফল কত?",
+                q_en: "What is the area of $\\Delta ABC$?",
+                options_bn: ["6\\sqrt{3} \\ $ বর্গ সে.মি. $ ", "12 \\ $ বর্গ সে.মি. $ ", "24 \\ $ বর্গ সে.মি. $ ", "12\\sqrt{3} \\ $ বর্গ সে.মি. $ "],
+                options_en: ["6\\sqrt{3} \\text{ sq. cm}", "12 \\text{ sq. cm}", "24 \\text{ sq. cm}", "12\\sqrt{3} \\text{ sq. cm}"],
+                ans: 0,
+                sol_bn: "ক্ষেত্রফল $= \\frac{1}{2} \\times 4 \\times 6 \\times \\sin(60°) = 6\\sqrt{3}$ বর্গ সে.মি.।",
+                sol_en: "Area $= \\frac{1}{2} \\times 4 \\times 6 \\times \\sin(60°) = 6\\sqrt{3}$ sq. cm."
+            },
+            {
+                id: 10,
+                q_bn: "$\\Delta ABC$ একটি সমকোণী ত্রিভুজ হবে, যদি এর বাহুগুলোর দৈর্ঘ্য হয়—<br>i. 5, 12, 13 একক<br>ii. 6, 8, 10 একক<br>iii. 7, 8, 10 একক<br>নিচের কোনটি সঠিক?",
+                q_en: "$\\Delta ABC$ will be a right-angled triangle if its sides are—<br>i. 5, 12, 13 units<br>ii. 6, 8, 10 units<br>iii. 7, 8, 10 units<br>Which one is correct?",
+                options_bn: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                options_en: ["i & ii", "i & iii", "ii & iii", "i, ii & iii"],
+                ans: 0,
+                sol_bn: "$5^2+12^2=13^2$ এবং $6^2+8^2=10^2$ সত্য। অতএব (i) ও (ii) সঠিক।",
+                sol_en: "$5^2+12^2=13^2$ and $6^2+8^2=10^2$. Thus (i) & (ii) are correct."
+            },
+            {
+                id: 11,
+                q_bn: "একটি রম্বসের দুইটি কর্ণের দৈর্ঘ্য যথাক্রমে 12 সে.মি. ও 15 সে.মি. হলে এর ক্ষেত্রফল কত?",
+                q_en: "If the lengths of two diagonals of a rhombus are 12 cm and 15 cm respectively, what is its area?",
+                options_bn: ["45 \\ $ বর্গ সে.মি. $ ", "90 \\ $ বর্গ সে.মি. $ ", "180 \\ $ বর্গ সে.মি. $ ", "360 \\ $ বর্গ সে.মি. $ "],
+                options_en: ["45 sq. cm", "90 sq. cm", "180 sq. cm", "360 sq. cm"],
+                ans: 1,
+                sol_bn: "ক্ষেত্রফল $= \\frac{1}{2} \\times 12 \\times 15 = 90$ বর্গ সে.মি.।",
+                sol_en: "Area $= \\frac{1}{2} \\times 12 \\times 15 = 90$ sq. cm."
+            },
+            {
+                id: 12,
+                context_bn: "<svg width='90' height='90' class='mx-auto my-1'><circle cx='45' cy='45' r='36' fill='none' stroke='black' stroke-width='1.5'/><path d='M45,9 L18,72 L72,72 Z' fill='none' stroke='black' stroke-width='1.2'/><path d='M45,45 L18,72 M45,45 L72,72 M45,58 L45,9' stroke='black' stroke-dasharray='2,2'/><circle cx='45' cy='45' r='2' fill='black'/><text x='43' y='7' font-size='9'>A</text><text x='7' y='78' font-size='9'>B</text><text x='75' y='78' font-size='9'>D</text><text x='43' y='90' font-size='9'>C</text><text x='49' y='43' font-size='9'>O</text><text x='43' y='65' font-size='9'>E</text></svg>",
+                context_en: "<svg width='90' height='90' class='mx-auto my-1'><circle cx='45' cy='45' r='36' fill='none' stroke='black' stroke-width='1.5'/><path d='M45,9 L18,72 L72,72 Z' fill='none' stroke='black' stroke-width='1.2'/><path d='M45,45 L18,72 M45,45 L72,72 M45,58 L45,9' stroke='black' stroke-dasharray='2,2'/><circle cx='45' cy='45' r='2' fill='black'/><text x='43' y='7' font-size='9'>A</text><text x='7' y='78' font-size='9'>B</text><text x='75' y='78' font-size='9'>D</text><text x='43' y='90' font-size='9'>C</text><text x='49' y='43' font-size='9'>O</text><text x='43' y='65' font-size='9'>E</text></svg>",
+                q_bn: "চিত্রে—<br>i. $\\angle BOE = 2\\angle OAB$<br>ii. $\\angle DOE = \\angle OAD + \\angle ODA$<br>iii. $\\angle BOD = \\frac{1}{2}\\angle BAD$<br>নিচের কোনটি সঠিক?",
+                q_en: "In the figure—<br>i. $\\angle BOE = 2\\angle OAB$<br>ii. $\\angle DOE = \\angle OAD + \\angle ODA$<br>iii. $\\angle BOD = \\frac{1}{2}\\angle BAD$<br>Which one is correct?",
+                options_bn: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                options_en: ["i & ii", "i & iii", "ii & iii", "i, ii & iii"],
+                ans: 0,
+                sol_bn: "বহিঃস্থ কোণ উপপাদ্য অনুযায়ী (i) ও (ii) সঠিক।",
+                sol_en: "By exterior angle theorem, (i) & (ii) are correct."
+            },
+            {
+                id: 13,
+                context_bn: "<svg width='90' height='90' class='mx-auto my-1'><circle cx='45' cy='45' r='36' fill='none' stroke='black' stroke-width='1.5'/><path d='M45,10 L18,70 L72,70 Z' fill='none' stroke='black' stroke-width='1.2'/><text x='42' y='8' font-size='9'>A</text><text x='8' y='76' font-size='9'>B</text><text x='76' y='76' font-size='9'>C</text><text x='38' y='34' font-size='8'>x+10°</text><text x='38' y='62' font-size='8'>x+80°</text></svg>",
+                context_en: "<svg width='90' height='90' class='mx-auto my-1'><circle cx='45' cy='45' r='36' fill='none' stroke='black' stroke-width='1.5'/><path d='M45,10 L18,70 L72,70 Z' fill='none' stroke='black' stroke-width='1.2'/><text x='42' y='8' font-size='9'>A</text><text x='8' y='76' font-size='9'>B</text><text x='76' y='76' font-size='9'>C</text><text x='38' y='34' font-size='8'>x+10°</text><text x='38' y='62' font-size='8'>x+80°</text></svg>",
+                q_bn: "চিত্রে $x$ এর মান কত?",
+                q_en: "In the figure, what is the value of $x$?",
+                options_bn: ["20°", "30°", "40°", "60°"],
+                options_en: ["20°", "30°", "40°", "60°"],
+                ans: 1,
+                sol_bn: "গণনা করে $x = 30°$ পাওয়া যায়।",
+                sol_en: "Solving gives $x = 30°$."
+            },
+            {
+                id: 14,
+                q_bn: "$\\tan\\theta = \\frac{3}{4}$ হলে, $\\sec^2\\theta =$ কত?",
+                q_en: "If $\\tan\\theta = \\frac{3}{4}$, then $\\sec^2\\theta =$ what?",
+                options_bn: ["\\frac{9}{16}", "\\frac{16}{25}", "\\frac{25}{16}", "\\frac{9}{25}"],
+                options_en: ["\\frac{9}{16}", "\\frac{16}{25}", "\\frac{25}{16}", "\\frac{9}{25}"],
+                ans: 2,
+                sol_bn: "$\\sec^2\\theta = 1 + \\tan^2\\theta = 1 + \\frac{9}{16} = \\frac{25}{16}$।",
+                sol_en: "$\\sec^2\\theta = 1 + \\frac{9}{16} = \\frac{25}{16}$."
+            },
+            {
+                id: 15,
+                q_bn: "$\\frac{1}{3^{-x}} = 81$ হলে $x$ এর মান কত?",
+                q_en: "If $\\frac{1}{3^{-x}} = 81$, what is the value of $x$?",
+                options_bn: ["-4", "-3", "3", "4"],
+                options_en: ["-4", "-3", "3", "4"],
+                ans: 3,
+                sol_bn: "$3^x = 81 = 3^4 \\implies x = 4$।",
+                sol_en: "$3^x = 81 = 3^4 \\implies x = 4$."
+            },
+            {
+                id: 16,
+                q_bn: "$\\cot\\theta - \\csc\\theta = \\frac{4}{3}$ হলে $\\csc\\theta + \\cot\\theta =$ কত?",
+                q_en: "If $\\cot\\theta - \\csc\\theta = \\frac{4}{3}$, then $\\csc\\theta + \\cot\\theta =$ what?",
+                options_bn: ["-\\frac{3}{4}", "-\\frac{4}{3}", "\\frac{4}{3}", "\\frac{3}{4}"],
+                options_en: ["-\\frac{3}{4}", "-\\frac{4}{3}", "\\frac{4}{3}", "\\frac{3}{4}"],
+                ans: 0,
+                sol_bn: "$(\\csc\\theta - \\cot\\theta)(\\csc\\theta + \\cot\\theta) = 1 \\implies \\csc\\theta + \\cot\\theta = -\\frac{3}{4}$।",
+                sol_en: "Product is $1$, hence $\\csc\\theta + \\cot\\theta = -\\frac{3}{4}$."
+            },
+            {
+                id: 17,
+                q_bn: "$y = 2x + 1$ ফাংশনের—<br>i. লেখচিত্রের একটি বিন্দু (1, 3)<br>ii. লেখচিত্র একটি সরলরেখা<br>iii. লেখচিত্র একটি বৃত্ত<br>নিচের কোনটি সঠিক?",
+                q_en: "For the function $y = 2x + 1$—<br>i. A point on the graph is (1, 3)<br>ii. Graph is a straight line<br>iii. Graph is a circle<br>Which one is correct?",
+                options_bn: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                options_en: ["i & ii", "i & iii", "ii & iii", "i, ii & iii"],
+                ans: 0,
+                sol_bn: "সমীকরণটি একঘাত, তাই (i) ও (ii) সঠিক।",
+                sol_en: "Linear equation, so (i) & (ii) are correct."
+            },
+            {
+                id: 18,
+                context_bn: "নিচের তথ্য থেকে 18 ও 19 নং প্রশ্নের উত্তর দাও:<br><svg width='120' height='75' class='mx-auto my-1'><path d='M12,62 L90,62 L90,12 Z' fill='none' stroke='black' stroke-width='1.5'/><text x='3' y='70' font-size='9'>B</text><text x='95' y='70' font-size='9'>C</text><text x='88' y='9' font-size='9'>A</text><text x='42' y='40' font-size='9'>45°</text><path d='M80,62 L80,52 L90,52' fill='none' stroke='black'/></svg>",
+                context_en: "Answer questions 18 & 19 based on the following diagram:<br><svg width='120' height='75' class='mx-auto my-1'><path d='M12,62 L90,62 L90,12 Z' fill='none' stroke='black' stroke-width='1.5'/><text x='3' y='70' font-size='9'>B</text><text x='95' y='70' font-size='9'>C</text><text x='88' y='9' font-size='9'>A</text><text x='42' y='40' font-size='9'>45°</text><path d='M80,62 L80,52 L90,52' fill='none' stroke='black'/></svg>",
+                q_bn: "যদি $ AD = 30 \\  $ মি. এবং $ \\angle ACD = 45° $ হয় তবে $ CD = $ কত মি.?",
+                q_en: "If $AD = 30$ m and $\\angle ACD = 45°$, then $CD =$ how many meters?",
+                options_bn: ["10\\sqrt{3}", "30", "30\\sqrt{3}", "60"],
+                options_en: ["10\\sqrt{3}", "30", "30\\sqrt{3}", "60"],
+                ans: 1,
+                sol_bn: "$\\tan(45°) = \\frac{30}{CD} \\implies CD = 30 \\ $ মি. । ",
+                sol_en: "$\\tan(45°) = \\frac{30}{CD} \\implies CD = 30$ m."
+            },
+            {
+                id: 19,
+                q_bn: "$AD = 7 \\ $ মি. $, \\ $CD = 12 মি. $ \\ $ এবং $ \\ $AB = 25 মি. হলে BC = কত?",
+                q_en: "If $AD = 7$ m, $CD = 12$ m and $AB = 25$ m, what is $BC$?",
+                options_bn: ["24 \\ $ মি. $ ", "19 \\ $ মি. $ ", "12 \\ $ মি. $ ", "6 \\ $ মি. $ "],
+                options_en: ["24 m", "19 m", "12 m", "6 m"],
+                ans: 0,
+                sol_bn: "$BD = \\sqrt{25^2 - 7^2} = 24 \\text{ মি.}$। সুতরাং $BC = 24 \\ $ মি. । ",
+                sol_en: "$BD = \\sqrt{25^2 - 7^2} = 24$ m. Thus $BC = 24$ m."
+            },
+            {
+                id: 20,
+                q_bn: "$a : b = 4 : 5, b : c = 2 : 3$ হলে $a : b : c = $ কত?",
+                q_en: "If $a : b = 4 : 5$ and $b : c = 2 : 3$, then $a : b : c = $ what?",
+                options_bn: ["20 : 25 : 15", "4 : 10 : 3", "8 : 10 : 6", "8 : 10 : 15"],
+                options_en: ["20 : 25 : 15", "4 : 10 : 3", "8 : 10 : 6", "8 : 10 : 15"],
+                ans: 3,
+                sol_bn: "$a : b : c = 8 : 10 : 15$।",
+                sol_en: "$a : b : c = 8 : 10 : 15$."
+            },
+            {
+                id: 21,
+                q_bn: "দুইটি সংখ্যার অনুপাত $5 : 6$ এবং তাদের ল.সা.গু. 150 হলে গ.সা.গু. কত?",
+                q_en: "The ratio of two numbers is $5 : 6$ and their LCM is 150. What is their HCF?",
+                options_bn: ["5", "6", "11", "30"],
+                options_en: ["5", "6", "11", "30"],
+                ans: 0,
+                sol_bn: "গ.সা.গু. $= 150 \\div 30 = 5$।",
+                sol_en: "HCF $= 150 \\div 30 = 5$."
+            },
+            {
+                id: 22,
+                q_bn: "$x + 2y = 10; 2x + 4y = 18$ সমীকরণ জোটটি—",
+                q_en: "The system of equations $x + 2y = 10; 2x + 4y = 18$ is—",
+                options_bn: ["\\ $ সমঞ্জ $ ", "\\ $ সমাধান অসংখ্য $ ", "\\ $ একটি মাত্র সমাধান আছে $ ", "\\ $ অনির্ভরশীল $ "],
+                options_en: ["Consistent", "Infinitely many solutions", "Unique solution", "Inconsistent/No solution"],
+                ans: 3,
+                sol_bn: "সমীকরণ জোটটি অসমঞ্জস ও অনির্ভরশীল।",
+                sol_en: "The system is inconsistent and independent."
+            },
+            {
+                id: 23,
+                q_bn: "$5 + 7 + 9 + 11 + \\dots$ ধারাটির 12তম পদ কত?",
+                q_en: "What is the $12^{\\text{th}}$ term of the series $5 + 7 + 9 + 11 + \\dots$?",
+                options_bn: ["27", "29", "192", "194"],
+                options_en: ["27", "29", "192", "194"],
+                ans: 0,
+                sol_bn: "12তম পদ $= 5 + 11 \\times 2 = 27$।",
+                sol_en: "$12^{\\text{th}}$ term $= 5 + 11 \\times 2 = 27$."
+            },
+            {
+                id: 24,
+                q_bn: "$S$ বর্ণের ঘূর্ণন কোণ কত?",
+                q_en: "What is the angle of rotation for the letter '$S$'?",
+                options_bn: ["90°", "180°", "270°", "360°"],
+                options_en: ["90°", "180°", "270°", "360°"],
+                ans: 1,
+                sol_bn: "ঘূর্ণন কোণ 180°।",
+                sol_en: "Rotation angle is 180°."
+            },
+            {
+                id: 25,
+                q_bn: "একটি গাছের দৈর্ঘ্য ও গাছটির ছায়ার দৈর্ঘ্যের অনুপাত $3 : \\sqrt{3}$ হলে উন্নতি কোণ কত?",
+                q_en: "If the ratio of the height of a tree to the length of its shadow is $3 : \\sqrt{3}$, what is the angle of elevation?",
+                options_bn: ["60°", "45°", "30°", "15°"],
+                options_en: ["60°", "45°", "30°", "15°"],
+                ans: 0,
+                sol_bn: "$\\tan\\theta = \\sqrt{3} \\implies \\theta = 60°$।",
+                sol_en: "$\\tan\\theta = \\sqrt{3} \\implies \\theta = 60°$."
+            },
+            {
+                id: 26,
+                q_bn: "একটি সমবৃত্তভূমিক বেলনের ভূমির ব্যাসার্ধ 4 সে.মি., উচ্চতা 12 সে.মি. হলে এর বক্রতলের ক্ষেত্রফল কত?",
+                q_en: "If radius of base of right circular cylinder is 4 cm and height is 12 cm, what is curved surface area?",
+                options_bn: ["96\\pi \\text{ cm}^2", "128\\pi \\text{ cm}^2", "192\\pi \\text{ cm}^2", "384\\pi \\text{ cm}^2"],
+                options_en: ["96\\pi \\text{ cm}^2", "128\\pi \\text{ cm}^2", "192\\pi \\text{ cm}^2", "384\\pi \\text{ cm}^2"],
+                ans: 0,
+                sol_bn: "বক্রতলের ক্ষেত্রফল $= 2\\pi(4)(12) = 96\\pi \\ $ বর্গ সে.মি.। ",
+                sol_en: "Curved surface area $= 96\\pi \\text{ cm}^2$."
+            },
+            {
+                id: 27,
+                context_bn: "নিচের তথ্যের আলোকে 27 ও 28 নং প্রশ্নের উত্তর দাও:<br><table class='border-collapse border border-gray-400 text-xs mx-auto my-1'><tr><td class='border border-gray-400 px-2 py-0.5 font-bold'>শ্রেণিব্যাপ্তি</td><td class='border border-gray-400 px-2 py-0.5'>20 - 29</td><td class='border border-gray-400 px-2 py-0.5'>30 - 39</td><td class='border border-gray-400 px-2 py-0.5'>40 - 49</td><td class='border border-gray-400 px-2 py-0.5'>50 - 59</td></tr><tr><td class='border border-gray-400 px-2 py-0.5 font-bold'>গণসংখ্যা</td><td class='border border-gray-400 px-2 py-0.5'>5</td><td class='border border-gray-400 px-2 py-0.5'>6</td><td class='border border-gray-400 px-2 py-0.5'>7</td><td class='border border-gray-400 px-2 py-0.5'>2</td></tr></table>",
+                context_en: "Answer questions 27 & 28 based on the table below:<br><table class='border-collapse border border-gray-400 text-xs mx-auto my-1'><tr><td class='border border-gray-400 px-2 py-0.5 font-bold'>Class Interval</td><td class='border border-gray-400 px-2 py-0.5'>20 - 29</td><td class='border border-gray-400 px-2 py-0.5'>30 - 39</td><td class='border border-gray-400 px-2 py-0.5'>40 - 49</td><td class='border border-gray-400 px-2 py-0.5'>50 - 59</td></tr><tr><td class='border border-gray-400 px-2 py-0.5 font-bold'>Frequency</td><td class='border border-gray-400 px-2 py-0.5'>5</td><td class='border border-gray-400 px-2 py-0.5'>6</td><td class='border border-gray-400 px-2 py-0.5'>7</td><td class='border border-gray-400 px-2 py-0.5'>2</td></tr></table>",
+                q_bn: "প্রদত্ত সারণির মধ্যক কত?",
+                q_en: "What is the median of the given table?",
+                options_bn: ["33", "38", "38.33$ (প্রায়) $ ", "43.33$ (প্রায়) $ "],
+                options_en: ["33", "38", "38.33 (approx)", "43.33 (approx)"],
+                ans: 2,
+                sol_bn: "মধ্যক $= 38.33$ (প্রায়)।",
+                sol_en: "Median $= 38.33$ (approx)."
+            },
+            {
+                id: 28,
+                q_bn: "প্রদত্ত সারণির প্রচুরক কত?",
+                q_en: "What is the mode of the given table?",
+                options_bn: ["46.67$ (প্রায়) $ ", "41.67$ (প্রায়) $ ", "38.33$ (প্রায়) $ ", "37.50$ (প্রায়) $ "],
+                options_en: ["46.67 (approx)", "41.67 (approx)", "38.33 (approx)", "37.50 (approx)"],
+                ans: 1,
+                sol_bn: "প্রচুরক $= 41.67$ (প্রায়)।",
+                sol_en: "Mode $= 41.67$ (approx)."
+            },
+            {
+                id: 29,
+                q_bn: "একটি বৃত্তের ব্যাস 24 সে.মি. হলে এর পরিধি কত?",
+                q_en: "If the diameter of a circle is 24 cm, what is its circumference?",
+                options_bn: ["15.07", "37.7", "75.4", "150.77"],
+                options_en: ["15.07", "37.7", "75.4", "150.77"],
+                ans: 2,
+                sol_bn: "পরিধি $= 3.1416 \\times 24 \\approx 75.4$ সে.মি.।",
+                sol_en: "Circumference $= 75.4$ cm."
+            },
+            {
+                id: 30,
+                q_bn: "$x^2 - 5x + 6 = 0$ সমীকরণের মূলদ্বয় নিচের কোনটি?",
+                q_en: "Which of the following are the roots of the equation $x^2 - 5x + 6 = 0$?",
+                options_bn: ["(2, 3)", "(2, -3)", "(-2, 3)", "(-2, -3)"],
+                options_en: ["(2, 3)", "(2, -3)", "(-2, 3)", "(-2, -3)"],
+                ans: 0,
+                sol_bn: "মূলদ্বয় $(2, 3)$।",
+                sol_en: "Roots are $(2, 3)$."
+            }
+        ];
+
+        let currentLang = 'bn';
+        let timerInterval;
+        let timeRemaining = 30 * 60;
+
+        function refreshMathJax() {
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
+            }
+        }
+
+        function startExamSession() {
+            const stdNameInput = document.getElementById('modal-std-name').value.trim();
+            const schNameInput = document.getElementById('modal-sch-name').value.trim();
+
+            if (!stdNameInput || !schNameInput) {
+                alert('Please enter both your Name and School Name to start the exam.');
+                return;
+            }
+
+            document.getElementById('display-std-name').innerText = stdNameInput;
+            document.getElementById('display-sch-name').innerText = schNameInput;
+            document.getElementById('start-modal').classList.add('hidden');
+
+            setLanguage('bn');
+            startTimer();
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('btn-bn').className = lang === 'bn' ? 'bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-400 transition text-sm' : 'bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg font-semibold shadow border border-slate-500 transition text-sm';
+            document.getElementById('btn-en').className = lang === 'en' ? 'bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-400 transition text-sm' : 'bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg font-semibold shadow border border-slate-500 transition text-sm';
+
+            document.getElementById('model-no').innerText = lang === 'bn' ? 'মডেল-৫' : 'Model - 5';
+            document.getElementById('school-title').innerText = lang === 'bn' ? 'ভিকারুন্নিসা নূন স্কুল অ্যান্ড কলেজ, ঢাকা' : 'Viqarunnisa Noon School & College, Dhaka';
+            document.getElementById('subject-title').innerText = lang === 'bn' ? 'গণিত (আবশ্যক) — সৃজনশীল বহুনির্বাচনি প্রশ্ন' : 'Mathematics (Compulsory) — Multiple Choice Questions';
+            document.getElementById('time-lbl').innerText = lang === 'bn' ? 'সময়' : 'Time';
+            document.getElementById('code-lbl').innerText = lang === 'bn' ? 'বিষয় কোড' : 'Subject Code';
+            document.getElementById('marks-lbl').innerText = lang === 'bn' ? 'পূর্ণমান' : 'Full Marks';
+            document.getElementById('instructions-lbl').innerText = lang === 'bn' ? '[দ্রষ্টব্য: সরবরাহকৃত বহুনির্বাচনি অভীক্ষার উত্তরপত্রে প্রশ্নের ক্রমিক নম্বরের বিপরীতে প্রদত্ত বৃত্তসমূহ হতে সঠিক/সর্বোৎকৃষ্ট উত্তরের বৃত্তটি (●) বল পয়েন্ট কলম দ্বারা সম্পূর্ণ ভরাট কর। প্রতিটি প্রশ্নের মান 1।]' : '[N.B. Fill the circle completely (●) with a ballpoint pen corresponding to the correct answer for each question. Each question carries 1 mark.]';
+            document.getElementById('lbl-std-name').innerText = lang === 'bn' ? "Students Name / পরীক্ষার্থীর নাম:" : "Students Name:";
+            document.getElementById('lbl-sch-name').innerText = lang === 'bn' ? "Name Of School / বিদ্যালয়ের নাম:" : "Name Of School:";
+
+            renderQuestions();
+            renderSolutions();
+            refreshMathJax();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('mcq-container');
+            container.innerHTML = '';
+
+            mcqData.forEach((item) => {
+                const optPrefix = currentLang === 'bn' ? ['ক', 'খ', 'গ', 'ঘ'] : ['A', 'B', 'C', 'D'];
+                const qText = currentLang === 'bn' ? item.q_bn : item.q_en;
+                const options = currentLang === 'bn' ? item.options_bn : item.options_en;
+                const context = currentLang === 'bn' ? item.context_bn : item.context_en;
+
+                let html = `<div class="question-card p-2.5 border border-gray-200 rounded-lg shadow-sm bg-white" id="q-card-${item.id}">`;
+                if (context) {
+                    html += `<div class="mb-1.5 p-1.5 bg-slate-50 border-l-3 border-blue-500 text-[11px] font-semibold text-gray-700 leading-tight">${context}</div>`;
+                }
+                html += `<p class="font-bold text-gray-900 text-xs mb-1.5 leading-snug"><span class="text-blue-700">${item.id}.</span> ${qText}</p>`;
+                html += `<div class="grid grid-cols-2 gap-1.5 text-[11px]">`;
+
+                options.forEach((opt, oIdx) => {
+                    html += `
+                        <label class="flex items-center space-x-1.5 p-1 rounded border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="mcq-${item.id}" value="${oIdx}" class="text-blue-600 focus:ring-blue-500 h-3 w-3">
+                            <span><strong>${optPrefix[oIdx]})</strong> $${opt}$</span>
+                        </label>
+                    `;
+                });
+
+                html += `</div></div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        function renderSolutions() {
+            const container = document.getElementById('solutions-list');
+            container.innerHTML = '';
+
+            mcqData.forEach((item) => {
+                const sol = currentLang === 'bn' ? item.sol_bn : item.sol_en;
+                const qText = currentLang === 'bn' ? item.q_bn : item.q_en;
+                const optPrefix = currentLang === 'bn' ? ['ক', 'খ', 'গ', 'ঘ'] : ['A', 'B', 'C', 'D'];
+                const correctOpt = currentLang === 'bn' ? item.options_bn[item.ans] : item.options_en[item.ans];
+
+                container.innerHTML += `
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-300">
+                        <p class="font-bold text-indigo-900 text-xs">Q${item.id}: ${qText}</p>
+                        <p class="text-xs font-semibold text-emerald-700 my-1">
+                            ✅ ${currentLang === 'bn' ? 'সঠিক উত্তর' : 'Correct Answer'}: ${optPrefix[item.ans]}) $${correctOpt}$
+                        </p>
+                        <div class="text-[11px] text-gray-700 mt-1 bg-white p-2.5 rounded border border-gray-200 leading-relaxed">
+                            <strong>${currentLang === 'bn' ? 'ব্যাখ্যা:' : 'Solution:'}</strong> ${sol}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function startTimer() {
+            const now = new Date();
+            document.getElementById('start-time-disp').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const endTime = new Date(now.getTime() + 30 * 60000);
+            document.getElementById('end-time-disp').innerText = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                const mins = Math.floor(timeRemaining / 60);
+                const secs = timeRemaining % 60;
+                document.getElementById('timer-disp').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert(currentLang === 'bn' ? 'সময় শেষ! উত্তরপত্র স্বয়ংক্রিয়ভাবে জমা দেওয়া হচ্ছে।' : 'Time up! Automatically submitting answer sheet.');
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function submitExam() {
+            clearInterval(timerInterval);
+            let score = 0;
+
+            mcqData.forEach((item) => {
+                const selected = document.querySelector(`input[name="mcq-${item.id}"]:checked`);
+                const card = document.getElementById(`q-card-${item.id}`);
+
+                if (selected) {
+                    const userAns = parseInt(selected.value);
+                    if (userAns === item.ans) {
+                        score++;
+                        card.classList.add('bg-emerald-50', 'border-emerald-500');
+                    } else {
+                        card.classList.add('bg-rose-50', 'border-rose-500');
+                    }
+                } else {
+                    card.classList.add('bg-amber-50', 'border-amber-400');
+                }
+            });
+
+            document.getElementById('result-board').classList.remove('hidden');
+            document.getElementById('score-text').innerText = `${score} / 30`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleSolutions() {
+            const solContainer = document.getElementById('solutions-container');
+            solContainer.classList.toggle('hidden');
+            refreshMathJax();
+        }
+    </script>
+</body>
+
+</html>
